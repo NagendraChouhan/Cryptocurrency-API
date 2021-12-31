@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptocurrency Price</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1 style="text-align: center;">Cryptocurrency Price</h1>
+    
+    <table>
+        <thead>
+            <th>#</th>
+            <th>Name</th>
+            <th class="right-tag">Price</th>
+            <th class="right-tag">24h%</th>
+            <th class="right-tag">7d%</th>
+            <th class="right-tag">Market Cap</th>
+            <th class="right-tag">Volume(24h)</th>
+            <th class="right-tag">Circulating Supply</th>
+        </thead>
+        <tbody>
+            {{#each cryptoData.data}}
+                <tr>
+                    <td><div class="count-add">1</div></td>
+                    <td><div>{{name}} <span class="ligth-color">{{symbol}}</span></div></td>
+                    <td class="right-tag"><div><span class="doler-color">$</span><span class="price_format  price-color">{{quote.USD.price}}</span></div></td>
+                    <td class="right-tag"><div class="price_format  color-class price-color-class">{{quote.USD.percent_change_24h}}</div></td>
+                    <td class="right-tag"><div class="price_format  color-class">{{quote.USD.percent_change_7d}}</div></td>
+                    <td class="right-tag"><div><span>$</span><span class="price_format ">{{quote.USD.volume_24h}}</span></div></td>
+                    <td class="right-tag"><div><span>$</span><span class="price_format ">{{quote.USD.market_cap}}</span></div></td>
+                    <td class="right-tag"><div class=""><span class="price_int_format">{{circulating_supply}}</span><span> {{symbol}}</span></div></td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</body>
+<script>
+    //document.addEventListener("DOMContentLoaded", function(){
+        window.onload = function() {
+        const forprice=document.getElementsByClassName("price_format");
+        const price_int_format=document.getElementsByClassName("price_int_format");
+        const colorClass=document.getElementsByClassName("color-class");
+        const priceColor=document.getElementsByClassName("price-color");
+        const dolerColor=document.getElementsByClassName("doler-color");
+        const priceColorClass=document.getElementsByClassName("price-color-class");
+        const countAdd=document.getElementsByClassName("count-add");
+       
+        for(let i=0;i<forprice.length;i++){
+            let value=parseFloat(forprice[i].innerHTML);
+            value=value.toFixed(2);
+            forprice[i].innerText=value;
+        }
+        for(let i=0;i<price_int_format.length;i++){
+            let value=parseFloat(forprice[i].innerHTML);
+            forprice[i].innerText=value;
+        }
+        for(let i=0;i<colorClass.length;i++){
+            if(colorClass[i].innerHTML>0){
+               colorClass[i].style.color="rgb(7 208 131)";
+            }
+            else if(colorClass[i].innerHTML<0){
+                colorClass[i].style.color="red";
+            }
+            else{
+                colorClass[i].style.color="black";
+
+            }
+        }
+        for(let i=0;i<priceColorClass.length;i++){
+            if(priceColorClass[i].innerHTML>=2){
+                   priceColor[i].style.color="rgb(7 208 131)";
+                   dolerColor[i].style.color="rgb(7 208 131)";
+               }
+            else if(priceColorClass[i].innerHTML<=-2){
+                   priceColor[i].style.color="red";
+                   dolerColor[i].style.color="red";
+
+               }
+            else{
+                priceColor[i].style.color="black";
+                dolerColor[i].style.color="black";
+
+            }
+        }
+         for(let i=0;i<countAdd.length;i++){
+            countAdd[i].innerHTML=i+1;
+        }
+        
+    };
+    //setInterval(async function(){
+      //  await fetch('../src/app.js')
+        //console.log("done")
+    //},10000);
+
+
+    
+
+
+
+</script>
+</html>
